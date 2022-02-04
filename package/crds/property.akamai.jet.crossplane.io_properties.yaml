@@ -4,18 +4,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
-  name: orders.hashicups.template.jet.crossplane.io
+  name: properties.property.akamai.jet.crossplane.io
 spec:
-  group: hashicups.template.jet.crossplane.io
+  group: property.akamai.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
-    - templatejet
-    kind: Order
-    listKind: OrderList
-    plural: orders
-    singular: order
+    - akamaijet
+    kind: Property
+    listKind: PropertyList
+    plural: properties
+    singular: property
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Order is the Schema for the Orders API
+        description: Property is the Schema for the Propertys API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -49,7 +49,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: OrderSpec defines the desired state of Order
+            description: PropertySpec defines the desired state of Property
             properties:
               deletionPolicy:
                 default: Delete
@@ -62,31 +62,97 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  items:
+                  contact:
+                    items:
+                      type: string
+                    type: array
+                  contract:
+                    type: string
+                  contractId:
+                    description: Contract ID to be assigned to the Property
+                    type: string
+                  cpCode:
+                    type: string
+                  group:
+                    type: string
+                  groupId:
+                    description: Group ID to be assigned to the Property
+                    type: string
+                  hostnames:
                     items:
                       properties:
-                        coffee:
+                        certProvisioningType:
+                          type: string
+                        certStatus:
                           items:
-                            properties:
-                              id:
-                                format: int64
-                                type: integer
-                            required:
-                            - id
                             type: object
                           type: array
-                        quantity:
-                          format: int64
-                          type: integer
+                        cnameFrom:
+                          type: string
+                        cnameTo:
+                          type: string
+                        cnameType:
+                          type: string
                       required:
-                      - coffee
-                      - quantity
+                      - certProvisioningType
+                      - cnameFrom
+                      - cnameTo
                       type: object
                     type: array
-                  lastUpdated:
+                  isSecure:
+                    type: boolean
+                  origin:
+                    items:
+                      properties:
+                        cacheKeyHostname:
+                          type: string
+                        compress:
+                          type: boolean
+                        enableTrueClientIp:
+                          type: boolean
+                        forwardHostname:
+                          type: string
+                        hostname:
+                          type: string
+                        port:
+                          format: int64
+                          type: integer
+                      type: object
+                    type: array
+                  product:
                     type: string
-                required:
-                - items
+                  productId:
+                    description: Product ID to be assigned to the Property
+                    type: string
+                  ruleFormat:
+                    description: Specify the rule format version (defaults to latest
+                      version available when created)
+                    type: string
+                  ruleWarnings:
+                    items:
+                      properties:
+                        behaviorName:
+                          type: string
+                        detail:
+                          type: string
+                        errorLocation:
+                          type: string
+                        instance:
+                          type: string
+                        statusCode:
+                          format: int64
+                          type: integer
+                        title:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    type: array
+                  rules:
+                    description: Property Rules as JSON
+                    type: string
+                  variables:
+                    type: string
                 type: object
               providerConfigRef:
                 default:
@@ -133,12 +199,28 @@ spec:
             - forProvider
             type: object
           status:
-            description: OrderStatus defines the observed state of Order.
+            description: PropertyStatus defines the observed state of Property.
             properties:
               atProvider:
                 properties:
                   id:
                     type: string
+                  latestVersion:
+                    format: int64
+                    type: integer
+                  productionVersion:
+                    format: int64
+                    type: integer
+                  readVersion:
+                    format: int64
+                    type: integer
+                  ruleErrors:
+                    items:
+                      type: object
+                    type: array
+                  stagingVersion:
+                    format: int64
+                    type: integer
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -1,14 +1,15 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME := provider-jet-template
+PROJECT_NAME := provider-jet-akamai
 PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION := 1.0.11
-export TERRAFORM_PROVIDER_SOURCE := hashicorp/hashicups
-export TERRAFORM_PROVIDER_VERSION := 0.3.2
-export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-hashicups
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/hashicorp/terraform-provider-hashicups/releases/download/v0.3.2
+export TERRAFORM_PROVIDER_SOURCE := akamai/akamai
+export TERRAFORM_PROVIDER_VERSION := 1.10.0
+export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-akamai
+# export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/hashicorp/terraform-provider-hashicups/releases/download/v0.3.2
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/akamai/terraform-provider-akamai/releases/download/v1.10.0
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
@@ -50,7 +51,7 @@ GO111MODULE = on
 # Setup Images
 
 DOCKER_REGISTRY ?= crossplane
-IMAGES = provider-jet-template provider-jet-template-controller
+IMAGES = provider-jet-akamai provider-jet-akamai-controller
 -include build/makelib/image.mk
 
 # ====================================================================================

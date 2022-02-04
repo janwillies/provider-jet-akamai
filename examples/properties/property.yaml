@@ -1,0 +1,10 @@
+apiVersion: property.akamai.jet.crossplane.io/v1alpha1
+kind: Order
+metadata:
+  name: Property
+spec:
+  forProvider:
+    contractId: 
+    groupId: 
+  providerConfigRef:
+    name: default

@@ -17,13 +17,14 @@ limitations under the License.
 package config
 
 import (
+	"github.com/crossplane-contrib/provider-jet-akamai/config/property"
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-template"
+	resourcePrefix = "akamai"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-akamai"
 )
 
 // GetProvider returns provider configuration
@@ -36,10 +37,13 @@ func GetProvider(resourceMap map[string]*schema.Resource) *tjconfig.Provider {
 	}
 
 	pc := tjconfig.NewProvider(resourceMap, resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn))
+		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+		tjconfig.WithIncludeList([]string{
+			"akamai_property$",
+		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
-		// add custom config functions
+		property.Configure,
 	} {
 		configure(pc)
 	}
